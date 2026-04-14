@@ -1,0 +1,20 @@
+name: fetch-etcd
+description: Fetch a value from etcd at a given path
+
+inputs:
+  etcd_server:
+    type: string
+    description: "Comma-separated etcd endpoints (e.g. http://10.138.66.176:2379)"
+    required: true
+  etcd_path:
+    type: string
+    description: "etcd key path to fetch (e.g. /config/my-app/some-key)"
+    required: true
+
+steps:
+  - name: fetch-value
+    action: etcd.fetch
+    plugin_version: v1.0.0
+    with:
+      etcd_server: "{{ inputs.etcd_server }}"
+      etcd_path: "{{ inputs.etcd_path }}"
