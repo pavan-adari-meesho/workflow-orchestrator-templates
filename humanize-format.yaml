@@ -1,0 +1,25 @@
+apiVersion: workflow/v1
+kind: WorkflowTemplate
+metadata:
+  name: humanize-format
+  description: Format a numeric value into a human-readable string using go-humanize
+
+spec:
+  arguments:
+    parameters:
+      value: ""
+      type: ""
+
+  steps:
+    - name: format-value
+      action: humanize.format
+      plugin_version: v1.0.0
+      with:
+        value: "{{ inputs.value }}"
+        type: "{{ inputs.type }}"
+
+    - name: print-result
+      action: noop.echo
+      plugin_version: v76.0.0
+      with:
+        message: "humanize.format result: {{ steps.format-value.output.formatted }}"
